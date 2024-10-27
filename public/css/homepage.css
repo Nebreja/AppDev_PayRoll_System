@@ -1,53 +1,36 @@
-body, html {
-    margin: 0;
-    padding: 0;
+/* homepage.css */
+
+/* General body styles */
+body {
     font-family: Arial, sans-serif;
-    overflow: hidden; /* Prevent scrolling */
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 1%, rgba(84, 119, 255, 1) 100%);
+    background-color: #f8f9fa; /* Light background for contrast */
 }
 
+/* Slider container styles */
 .slider-container {
     position: relative;
-    width: 80vw;  
-    height: 80vh; 
-    max-width: 1200px; 
     overflow: hidden;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 400px; /* Adjust height as needed */
 }
 
+/* Slider wrapper styles */
 .slider-wrapper {
     display: flex;
-    width: 200%;  
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease;
+    height: 100%; /* Ensure it takes full height */
 }
 
+/* Slide styles */
 .slide {
-    min-width: 100%;  /* Each slide takes up the full width */
+    min-width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-}
-
-h1 {
-    font-size: 3rem;
-    color: #333;
-}
-
-p {
-    font-size: 1.5rem;
-    color: #666;
+    justify-content: center;
+    color: rgb(255, 255, 255); /* Change text color to white */
+    background-color: rgb(116, 9, 56); /* Primary color for slides */
+    padding: 20px;
 }
 
 /* Arrow styles */
@@ -55,46 +38,94 @@ p {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 2rem;
-    color: #333;
+    font-size: 30px;
+    color: rgb(222, 124, 125); /* Change arrow color to the specified red */
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 50%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
-
-.arrow:hover {
-    color: #007bff;
-    background-color: rgba(255, 255, 255, 1);
-    transition: background-color 0.3s ease;
-}
-
-.btn-signup {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #007bff;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.btn-signup:hover {
-    background-color: #0056b3;
+    z-index: 1;
 }
 
 .left {
-    left: 0;
+    left: 10px;
 }
 
 .right {
-    right: 0;
+    right: 10px;
 }
 
-.hidden {
-    display: none;
+/* Features section styles */
+#features {
+    background-color: rgb(175, 23, 64); /* Darker red for features section */
+    color: rgb(255, 255, 255); /* Change text color to white */
+    padding: 60px 0;
+}
+
+.card {
+    background-color: rgb(222, 124, 125); /* Light red for cards */
+    border: none;
+    transition: transform 0.3s;
+    color: #100101; /* Dark text inside cards for contrast */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+/* Testimonials section styles */
+#testimonials {
+    background-color: rgb(204, 43, 82); /* Slightly darker red for testimonials */
+    color: #000; /* Change text color to black for better readability */
+    padding: 60px 0;
+}
+
+#testimonials h2 {
+    color: rgb(7, 0, 0); /* White color for heading */
+    margin-bottom: 30px; /* Space below the heading */
+}
+
+blockquote {
+    background-color: rgba(222, 124, 125, 0.3); /* Light background for blockquotes */
+    border-left: 5px solid rgb(175, 23, 64); /* Left border using the second color */
+    padding: 20px; /* Padding inside the blockquote */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 20px; /* Space between testimonials */
+}
+
+/* Contact section styles */
+#contact {
+    background-color: rgb(255, 255, 255); /* White background for contact form */
+    padding: 60px 0;
+}
+
+#contact h2 {
+    color: rgb(116, 9, 56); /* Heading color matching the palette */
+    margin-bottom: 30px; /* Space below the heading */
+}
+
+#contact .form-group label {
+    color: rgb(116, 9, 56); /* Label color matching the palette */
+}
+
+#contact .form-control {
+    border: 1px solid rgb(175, 23, 64); /* Border color for input fields */
+}
+
+.btn-primary {
+    background-color: rgb(116, 9, 56); /* Primary button color */
+    border: none;
+    color: rgb(222, 124, 125); /* Change button text color to the specified red */
+}
+
+.btn-primary:hover {
+    background-color: rgb(175, 23, 64); /* Darker on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slide h1 {
+        font-size: 2em;
+    }
+    .slide p {
+        font-size: 1.2em;
+    }
 }
