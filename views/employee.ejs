@@ -27,91 +27,89 @@
             <li><a href="#" onclick="showContainer('profilecontainer')"><i class="fa-solid fa-user"></i> <span>Profile Info</span></a></li>
             <li><a href="#" onclick="showContainer('salarycontainer')"><i class="fa-solid fa-comment-dollar"></i></i> <span>Salary Section</span></a></li>
             <li><a href="#" onclick="showContainer('employmentcontainer')"><i class="fa-solid fa-person-walking-luggage"></i> <span>Employment Info</span></a></li>
-            <li><a href="#" onclick="showContainer('leavecontainer')"><i class="fa-solid fa-circle-left"></i> <span>Leaves</span></a></li>
+            <li><a href="#" onclick="showContainer('leavecontainer')"><i class="fa-solid fa-circle-left"></i> <span>Request Leave</span></a></li>
             <li><a href="#" onclick="showContainer('leavereqcontainer')"><i class="fa-solid fa-bell"></i> <span>Leaves Request</span></a></li>
             <li><a href="#" onclick="showContainer('holidayscontainer')"><i class="fa-solid fa-calendar-check"></i> <span>Holidays</span></a></li>
             <li class="logout"><a href="/signin"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
         </ul>
     </div>
-    <div id="profilecontainer" class="profilecontainer ">
+    <div id="profilecontainer" class="profilecontainer">
         <form action="" method="post">
             <h1>Personal Information</h1>
             <div class="input-container">
-                <input type="text" name="last" placeholder="Last Name" required>
-                <input type="text" name="number" placeholder="Contact Number" required>
-                <input type="text" name="first" placeholder="First Name" required>
-                <input type="text" name="emernumber" placeholder="Emergency Number" required>
-                <input type="text" name="middle" placeholder="Middle Name" required>
-                <input type="text" name="address" placeholder="Address" required>
-                <input type="date" name="dob" placeholder="Date of Birth" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="last" placeholder="Last Name" value="<%= user.last_name %>" required>
+                <input type="text" name="number" placeholder="Contact Number" value="<%= user.contact_number %>" required>
+                <input type="text" name="first" placeholder="First Name" value="<%= user.first_name %>" required>
+                <input type="text" name="emernumber" placeholder="Emergency Number" value="<%= user.emergency_number %>" required>
+                <input type="text" name="middle" placeholder="Middle Name" value="<%= user.middle_name %>" required>
+                <input type="text" name="address" placeholder="Address" value="<%= user.address %>" required>
+                <input type="date" name="dob" placeholder="Date of Birth" value="<%= user.dob.toISOString().split('T')[0] %>" required>
+                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required>
                 <select id="gender" name="gender" class="styled-select" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Feamle">Female</option>      
+                    <option value="Male" <%= user.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                    <option value="Female" <%= user.gender === 'Female' ? 'selected' : '' %>>Female</option>
                 </select>
-                <input type="text" name="idnum" placeholder="ID Number" required>
+                <input type="text" name="idnum" placeholder="ID Number" value="<%= user.id_number %>" required>
                 <select id="status" name="status" class="styled-select" required>
-                    <option value="" disabled selected>Marital Status</option>
-                    <option value="Single">Single</option>
-                    <option value="Married">Married</option>
-                    <option value="Widowed">Widowed</option>      
+                    <option value="Single" <%= user.status === 'Single' ? 'selected' : '' %>>Single</option>
+                    <option value="Married" <%= user.status === 'Married' ? 'selected' : '' %>>Married</option>
+                    <option value="Widowed" <%= user.status === 'Widowed' ? 'selected' : '' %>>Widowed</option>
                 </select>
-                <input type="password" name="password" placeholder="Password" required>
+                <button type="change" name="change" id="changed-button">Changed Password</button>
             </div>
-            <button type="submit" name="update" id="update-button">Update</button>
+            <button type="submit" name="update" id="update-button">Update</button> 
         </form>
     </div>
-
+    
     <div id="employmentcontainer" class="employmentcontainer hidden">
-        <form action="" method="post">
+        <form action="/employee/employment" method="post">
             <h1>Employment Information</h1>
             <div class="input-grid">
                 <div class="form-group">
                     <label for="idnum">ID Number</label>
-                    <input type="text" name="idnum" placeholder="ID Number" required>
+                    <input type="text" name="idnum" placeholder="ID Number" value="<%= user.id_number %>" required>
                 </div>
                 <div class="form-group">
                     <label for="employmenttype">Employment Type</label>
                     <select id="employmenttype" name="employmenttype" class="styled-select" required>
-                        <option value="" disabled selected>Employment Type</option>
-                        <option value="Full-Time">Full-Time</option>
-                        <option value="Part-Time">Part-Time</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Temporary">Temporary</option>
+                        <option value="" disabled>Select Employment Type</option>
+                        <option value="Full-Time" <%= employmentInfo.employment_type === 'Full-Time' ? 'selected' : '' %>>Full-Time</option>
+                        <option value="Part-Time" <%= employmentInfo.employment_type === 'Part-Time' ? 'selected' : '' %>>Part-Time</option>
+                        <option value="Contract" <%= employmentInfo.employment_type === 'Contract' ? 'selected' : '' %>>Contract</option>
+                        <option value="Temporary" <%= employmentInfo.employment_type === 'Temporary' ? 'selected' : '' %>>Temporary</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="department">Department</label>
                     <select id="department" name="department" class="styled-select" required>
-                        <option value="" disabled selected>Select Department</option>
-                        <option value="Sales Department">Sales Department</option>
-                        <option value="Service Department">Service Department</option>
-                        <option value="Parts Department">Parts Department</option>
-                        <option value="Finance and Accounting Department">Finance and Accounting Department</option>
-                        <option value="Marketing Department">Marketing Department</option>
-                        <option value="Human Resources Department">Human Resources Department</option>
-                        <option value="Customer Relations Department">Customer Relations Department</option>
-                        <option value="Logistics and Transport Department">Logistics and Transport Department</option>
-                        <option value="IT Department">IT Department</option>
-                        <option value="Security Department">Security Department</option>
-                        <option value="Cleaning Department">Cleaning Department</option>                  
+                        <option value="" disabled>Select Department</option>
+                        <option value="Sales Department" <%= employmentInfo.department === 'Sales Department' ? 'selected' : '' %>>Sales Department</option>
+                        <option value="Service Department" <%= employmentInfo.department === 'Service Department' ? 'selected' : '' %>>Service Department</option>
+                        <option value="Parts Department" <%= employmentInfo.department === 'Parts Department' ? 'selected' : '' %>>Parts Department</option>
+                        <option value="Finance and Accounting Department" <%= employmentInfo.department === 'Finance and Accounting Department' ? 'selected' : '' %>>Finance and Accounting Department</option>
+                        <option value="Marketing Department" <%= employmentInfo.department === 'Marketing Department' ? 'selected' : '' %>>Marketing Department</option>
+                        <option value="Human Resources Department" <%= employmentInfo.department === 'Human Resources Department' ? 'selected' : '' %>>Human Resources Department</option>
+                        <option value="Customer Relations Department" <%= employmentInfo.department === 'Customer Relations Department' ? 'selected' : '' %>>Customer Relations Department</option>
+                        <option value="Logistics and Transport Department" <%= employmentInfo.department === 'Logistics and Transport Department' ? 'selected' : '' %>>Logistics and Transport Department</option>
+                        <option value="IT Department" <%= employmentInfo.department === 'IT Department' ? 'selected' : '' %>>IT Department</option>
+                        <option value="Security Department" <%= employmentInfo.department === 'Security Department' ? 'selected' : '' %>>Security Department</option>
+                        <option value="Cleaning Department" <%= employmentInfo.department === 'Cleaning Department' ? 'selected' : '' %>>Cleaning Department</option>
                     </select>
-    
                 </div>
                 <div class="form-group">
                     <label for="hireDate">Date of Hire</label>
-                    <input type="date" name="hireDate" placeholder="Date of Hire" required>
+                    <input type="date" name="hireDate" placeholder="Date of Hire" value="<%= employmentInfo.hire_date ? employmentInfo.hire_date.toISOString().split('T')[0] : '' %>" required>
                 </div>
                 <div class="form-group">
                     <label for="position">Position</label>
                     <select id="position" name="position" class="styled-select" required>
                         <option value="" disabled selected>Select Position</option>
+                        <!-- Add options for positions here -->
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="rate">Salary Rate</label>
-                    <input type="text" name="rate" placeholder="Salary Rate" required>
+                    <input type="text" name="rate" placeholder="Salary Rate" value="<%= employmentInfo.salary_rate || '' %>" required>
                 </div>
             </div>
     
@@ -119,55 +117,55 @@
             <div class="input-grid">
                 <div class="form-group">
                     <label for="bankname">Bank Name</label>
-                    <input type="text" name="bankname" placeholder="Bank Name" required>
+                    <input type="text" name="bankname" placeholder="Bank Name" value="<%= employmentInfo.bank_name || '' %>" required>
                 </div>
                 <div class="form-group">
                     <label for="accountname">Account Holder Name</label>
-                    <input type="text" name="accountname" placeholder="Account Holder Name" required>
+                    <input type="text" name="accountname" placeholder="Account Holder Name" value="<%= employmentInfo.account_holder_name || '' %>" required>
                 </div>
                 <div class="form-group">
                     <label for="accountnum">Account Number</label>
-                    <input type="text" name="accountnum" placeholder="Account Number" required>
+                    <input type="text" name="accountnum" placeholder="Account Number" value="<%= employmentInfo.account_number || '' %>" required>
                 </div>
                 <div class="form-group">
                     <label for="routingnum">Routing Number</label>
-                    <input type="text" name="routingnum" placeholder="Routing Number" required>
+                    <input type="text" name="routingnum" placeholder="Routing Number" value="<%= employmentInfo.routing_number || '' %>" required>
                 </div>
             </div>
-            <button type="submit" name="save" id="save-button">Save</button>
+            <div class="button-container">
+                <button type="submit" name="save" id="save-button">Save</button>
+            </div>
         </form>
     </div>
     
-
     <div id="leavecontainer" class="leavecontainer hidden">
-        <form action="" method="post" class="leave-form">
+        <form action="/employee/leave" method="post" class="leave-form">
             <h1>Leave Application</h1>
+            <input type="hidden" name="idnum" value="<%= user.id_number %>"> <!-- Hidden input for id_number -->
             <div class="input-container">
                 <label for="subject">Leave Subject</label>
                 <input type="text" id="subject" name="subject" placeholder="Enter Leave Subject" required>
                 <label for="type">Leave Type</label>
-                <select id="leaveType" name="leaveType">
+                <select id="leaveType" name="leaveType" required>
                     <option value="">Select Leave Type</option>
-                    <option value="sick">Sick Leave</option>
-                    <option value="casual">Casual Leave</option>
-                    <option value="annual">Annual Leave</option>
-                    <option value="maternity">Maternity Leave</option>
-                    <option value="paternity">Paternity Leave</option>
-                    <option value="unpaid">Unpaid Leave</option>
+                    <option value="Sick Leave">Sick Leave</option>
+                    <option value="Casual Leave">Casual Leave</option>
+                    <option value="Annual Leave">Annual Leave</option>
+                    <option value="Maternity Leave">Maternity Leave</option>
+                    <option value="Paternity Leave">Paternity Leave</option>
+                    <option value="Unpaid Leave">Unpaid Leave</option>
                 </select>
-                <div id="single-date-field" class="date-field">
-                    <label for="leavedate">Leave Date</label>
-                    <input type="date" id="leavedate" name="leavedate">
-                </div>
-                <div id="single-date-field" class="date-field">
-                    <label for="enddate">End of Leave Date</label>
-                    <input type="date" id="enddate" name="enddate">
-                </div>
+                <label for="leavedate">Leave Date</label>
+                <input type="date" id="leavedate" name="leavedate" required>
+                <label for="enddate">End of Leave Date</label>
+                <input type="date" id="enddate" name="enddate" required>
                 <label for="message">Leave Message</label>
                 <textarea id="message" name="message" placeholder="Enter Leave Message or Details" required></textarea>
             </div>
-            <button type="submit" name="submit" id="submit-button">Submit Leave Application</button>
-        </form>
+            <div class="button-container">
+                <button type="submit" name="save" id="save-button">Save</button>
+            </div>
+        </form>        
     </div>
 
     <div id="leavereqcontainer" class="leavereqcontainer hidden">
@@ -194,7 +192,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Populate table rows dynamically -->
+                    <% leaveRequests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.subject %></td>
+                            <td><%= request.leave_type %></td>
+                            <td><%= request.leave_date.toISOString().split('T')[0] %></td>
+                            <td><%= request.end_date ? request.end_date.toISOString().split('T')[0] : 'N/A' %></td>
+                            <td><%= request.message %></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% }); %>
                 </tbody>
             </table>
             <!-- Pagination controls -->
