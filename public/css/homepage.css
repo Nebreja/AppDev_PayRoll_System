@@ -3,21 +3,21 @@
 /* General body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light background for contrast */
+    background-color: #f8f9fa; 
 }
 
 /* Slider container styles */
 .slider-container {
     position: relative;
     overflow: hidden;
-    height: 400px; /* Adjust height as needed */
+    height: 400px; 
 }
 
 /* Slider wrapper styles */
 .slider-wrapper {
     display: flex;
     transition: transform 0.5s ease;
-    height: 100%; /* Ensure it takes full height */
+    height: 100%; 
 }
 
 /* Slide styles */
@@ -28,8 +28,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgb(255, 255, 255); /* Change text color to white */
-    background-color: rgb(116, 9, 56); /* Primary color for slides */
+    color: rgb(255, 255, 255); 
+    background-color: rgb(116, 9, 56); 
     padding: 20px;
 }
 
@@ -39,7 +39,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     font-size: 30px;
-    color: rgb(222, 124, 125); /* Change arrow color to the specified red */
+    color: rgb(222, 124, 125); 
     cursor: pointer;
     z-index: 1;
 }
@@ -52,72 +52,71 @@ body {
     right: 10px;
 }
 
-/* Features section styles */
+
 #features {
-    background-color: rgb(175, 23, 64); /* Darker red for features section */
-    color: rgb(255, 255, 255); /* Change text color to white */
+    background-color: rgb(175, 23, 64); 
+    color: rgb(255, 255, 255); 
     padding: 60px 0;
 }
 
 .card {
-    background-color: rgb(222, 124, 125); /* Light red for cards */
+    background-color: rgb(222, 124, 125); 
     border: none;
     transition: transform 0.3s;
-    color: #100101; /* Dark text inside cards for contrast */
+    color: #100101;
 }
 
 .card:hover {
-    transform: scale(1.05); /* Scale effect on hover */
+    transform: scale(1.05); 
 }
 
-/* Testimonials section styles */
 #testimonials {
-    background-color: rgb(204, 43, 82); /* Slightly darker red for testimonials */
-    color: #000; /* Change text color to black for better readability */
+    background-color: rgb(204, 43, 82); 
+    color: #000; 
     padding: 60px 0;
 }
 
 #testimonials h2 {
-    color: rgb(7, 0, 0); /* White color for heading */
-    margin-bottom: 30px; /* Space below the heading */
+    color: rgb(7, 0, 0); 
+    margin-bottom: 30px; 
 }
 
 blockquote {
-    background-color: rgba(222, 124, 125, 0.3); /* Light background for blockquotes */
-    border-left: 5px solid rgb(175, 23, 64); /* Left border using the second color */
-    padding: 20px; /* Padding inside the blockquote */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    margin-bottom: 20px; /* Space between testimonials */
+    background-color: rgba(222, 124, 125, 0.3); 
+    border-left: 5px solid rgb(175, 23, 64); 
+    padding: 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 20px; 
 }
 
 /* Contact section styles */
 #contact {
-    background-color: rgb(255, 255, 255); /* White background for contact form */
+    background-color: #F8F1F1; 
     padding: 60px 0;
 }
 
 #contact h2 {
-    color: rgb(116, 9, 56); /* Heading color matching the palette */
-    margin-bottom: 30px; /* Space below the heading */
+    color: rgb(116, 9, 56); 
+    margin-bottom: 30px; 
 }
 
 #contact .form-group label {
-    color: rgb(116, 9, 56); /* Label color matching the palette */
+    color: rgb(116, 9, 56); 
 }
 
 #contact .form-control {
-    border: 1px solid rgb(175, 23, 64); /* Border color for input fields */
+    border: 1px solid rgb(175, 23, 64); 
 }
 
 .btn-primary {
-    background-color: rgb(116, 9, 56); /* Primary button color */
+    background-color: rgb(116, 9, 56);
     border: none;
-    color: rgb(222, 124, 125); /* Change button text color to the specified red */
+    color: rgb(222, 124, 125); 
 }
 
 .btn-primary:hover {
-    background-color: rgb(175, 23, 64); /* Darker on hover */
+    background-color: rgb(175, 23, 64); 
 }
 
 /* Responsive adjustments */
@@ -129,3 +128,22 @@ blockquote {
         font-size: 1.2em;
     }
 }
+#contact .card {
+    background-color: ##F5F7F8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+}
+
+#contact h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-links .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
