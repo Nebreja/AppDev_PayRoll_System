@@ -1,5 +1,3 @@
-// routes/router.js
-
 const express = require('express');
 const router = express.Router();
 const authController = require('../controller/controllers'); // Import the controllers
@@ -15,7 +13,7 @@ router.get('/signup', (req, res) => {
 });
 
 // Handle signup form submission
-router.post('/signup', authController.signup); // Correctly reference the signup function
+router.post('/signup', authController.signup);
 
 // Signin page route
 router.get('/signin', (req, res) => {
@@ -25,13 +23,22 @@ router.get('/signin', (req, res) => {
 // Handle signin form submission
 router.post('/signin', authController.signin);
 
-// Add the employee route
-router.get('/employee', (req, res) => {
-    res.render('employee'); // Make sure 'employee' matches your EJS file name
-});
-
 router.get('/admin', (req, res) => {
     res.render('admin');
 });
+
+// Route to get user profile by ID number
+router.get('/employee', authController.getEmployeeProfile);
+
+// Save employment information
+router.post('/employee/employment', authController.saveEmploymentInfo);
+
+// Route to handle leave request submissions
+router.post('/employee/leave', authController.submitLeaveRequest);
+
+
+// Route to fetch leave requests for the employee profile
+router.get('/employee/leave', authController.getLeaveRequests);
+
 
 module.exports = router;
