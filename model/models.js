@@ -49,4 +49,87 @@ const verifyPassword = (enteredPassword, storedPassword) => {
     return bcrypt.compare(enteredPassword, storedPassword);
 };
 
-module.exports = { createUser, findUserByIdNum, verifyPassword };
+// Create employment information
+const createEmploymentInfo = (employmentData) => {
+    const query = `
+    INSERT INTO employment_info (id_number, employment_type, department, hire_date, position, salary_rate, bank_name, account_holder_name, account_number, routing_number)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const data = [
+        employmentData.id_number,
+        employmentData.employment_type,
+        employmentData.department,
+        employmentData.hire_date,
+        employmentData.position,
+        employmentData.salary_rate,
+        employmentData.bank_name,
+        employmentData.account_holder_name,
+        employmentData.account_number,
+        employmentData.routing_number
+    ];
+
+    return new Promise((resolve, reject) => {
+        db.query(query, data, (err, results) => {
+            if (err) reject(err);
+            resolve(results);
+        });
+    });
+};
+
+// Get employment information by ID number
+const getEmploymentInfoByIdNum = (idnum) => {
+    const query = 'SELECT * FROM employment_info WHERE id_number = ?';
+    return new Promise((resolve, reject) => {
+        db.query(query, [idnum], (err, results) => {
+            if (err) return reject(err);
+            resolve(results[0]); // Return employment info
+        });
+    });
+};
+
+// Create leave request
+const createLeaveRequest = (leaveData) => {
+    const query = `
+    INSERT INTO leave_requests (id_number, subject, leave_type, leave_date, end_date, message, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    const data = [
+        leaveData.id_number,
+        leaveData.subject,
+        leaveData.leave_type,
+        leaveData.leave_date,
+        leaveData.end_date,
+        leaveData.message,
+        leaveData.status
+    ];
+
+    return new Promise((resolve, reject) => {
+        db.query(query, data, (err, results) => {
+            if (err) reject(err);
+            resolve(results);
+        });
+    });
+};
+
+
+// Get leave requests by ID number
+const getLeaveRequestsByIdNum = (idnum) => {
+    const query = 'SELECT * FROM leave_requests WHERE id_number = ? ORDER BY created_at DESC';
+    return new Promise((resolve, reject) => {
+        db.query(query, [idnum], (err, results) => {
+            if (err) return reject(err);
+            resolve(results); // Return all leave requests
+        });
+    });
+};
+
+module.exports = { 
+    createUser, 
+    findUserByIdNum, 
+    verifyPassword, 
+    createEmploymentInfo, 
+    getEmploymentInfoByIdNum,
+    createLeaveRequest,   // Add this line
+    getLeaveRequestsByIdNum // And this line
+};
+
