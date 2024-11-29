@@ -1,237 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/employee.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <title>Document</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            background-color: #2c3e50;
+            width: 250px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            padding: 20px;
+            position: fixed;
+        }
+
+        .sidebar .user-profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .user-profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #ecf0f1;
+        }
+
+        .sidebar .menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar .menu a:hover {
+            background-color: #34495e;
+        }
+
+        .sidebar .menu a i {
+            margin-right: 10px;
+        }
+
+        .logout {
+            margin-top: auto;
+        }
+
+        /* Content styling */
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            width: calc(100% - 270px);
+            background-color: #f4f4f9;
+            min-height: 100vh;
+        }
+
+        .content h1 {
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
         .hidden {
             display: none;
         }
+
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .form-container form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            grid-column: span 2;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #2980b9;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table-container table th,
+        .table-container table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table-container table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .content {
+                margin-left: 220px;
+                padding: 10px;
+            }
+
+            .form-container form {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar .menu a {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
+
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="user-profile">
-            <a href="">
-                <img src="user-avatar.jpg" alt="" class="avatar">
-            </a>
+            <img src="user-avatar.jpg" alt="User Avatar">
+            <p>Welcome, User</p>
         </div>
         <ul class="menu">
-            <li><a href="#" onclick="showContainer('profilecontainer')"><i class="fa-solid fa-user"></i> <span>Profile Info</span></a></li>
-            <li><a href="#" onclick="showContainer('salarycontainer')"><i class="fa-solid fa-comment-dollar"></i></i> <span>Salary Section</span></a></li>
-            <li><a href="#" onclick="showContainer('employmentcontainer')"><i class="fa-solid fa-person-walking-luggage"></i> <span>Employment Info</span></a></li>
-            <li><a href="#" onclick="showContainer('leavecontainer')"><i class="fa-solid fa-circle-left"></i> <span>Request Leave</span></a></li>
-            <li><a href="#" onclick="showContainer('leavereqcontainer')"><i class="fa-solid fa-bell"></i> <span>Leaves Request</span></a></li>
-            <li><a href="#" onclick="showContainer('holidayscontainer')"><i class="fa-solid fa-calendar-check"></i> <span>Holidays</span></a></li>
-            <li class="logout"><a href="/signin"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <li><a href="#" onclick="showContainer('profilecontainer')"><i class="fa-solid fa-user"></i> Profile Info</a></li>
+            <li><a href="#" onclick="showContainer('salarycontainer')"><i class="fa-solid fa-comment-dollar"></i> Salary Section</a></li>
+            <li><a href="#" onclick="showContainer('employmentcontainer')"><i class="fa-solid fa-person-walking-luggage"></i> Employment Info</a></li>
+            <li><a href="#" onclick="showContainer('leavecontainer')"><i class="fa-solid fa-circle-left"></i> Request Leave</a></li>
+            <li><a href="#" onclick="showContainer('leavereqcontainer')"><i class="fa-solid fa-bell"></i> Leaves Request</a></li>
+            <li><a href="#" onclick="showContainer('holidayscontainer')"><i class="fa-solid fa-calendar-check"></i> Holidays</a></li>
+            <li class="logout"><a href="/signin"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
-    <div id="profilecontainer" class="profilecontainer">
-        <form action="" method="post">
+
+    <!-- Main content -->
+    <div class="content">
+        <div id="profilecontainer" class="hidden">
             <h1>Personal Information</h1>
-            <div class="input-container">
-                <input type="text" name="last" placeholder="Last Name" value="<%= user.last_name %>" required>
-                <input type="text" name="number" placeholder="Contact Number" value="<%= user.contact_number %>" required>
-                <input type="text" name="first" placeholder="First Name" value="<%= user.first_name %>" required>
-                <input type="text" name="emernumber" placeholder="Emergency Number" value="<%= user.emergency_number %>" required>
-                <input type="text" name="middle" placeholder="Middle Name" value="<%= user.middle_name %>" required>
-                <input type="text" name="address" placeholder="Address" value="<%= user.address %>" required>
-                <input type="date" name="dob" placeholder="Date of Birth" value="<%= user.dob.toISOString().split('T')[0] %>" required>
-                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required>
-                <select id="gender" name="gender" class="styled-select" required>
-                    <option value="Male" <%= user.gender === 'Male' ? 'selected' : '' %>>Male</option>
-                    <option value="Female" <%= user.gender === 'Female' ? 'selected' : '' %>>Female</option>
-                </select>
-                <input type="text" name="idnum" placeholder="ID Number" value="<%= user.id_number %>" required>
-                <select id="status" name="status" class="styled-select" required>
-                    <option value="Single" <%= user.status === 'Single' ? 'selected' : '' %>>Single</option>
-                    <option value="Married" <%= user.status === 'Married' ? 'selected' : '' %>>Married</option>
-                    <option value="Widowed" <%= user.status === 'Widowed' ? 'selected' : '' %>>Widowed</option>
-                </select>
-                <button type="change" name="change" id="changed-button">Changed Password</button>
+            <div class="form-container">
+                <form action="" method="post">
+                    <label for="last">Last Name</label>
+                    <input type="text" name="last" placeholder="Last Name" required>
+                    <label for="first">First Name</label>
+                    <input type="text" name="first" placeholder="First Name" required>
+                    <!-- Add more fields as needed -->
+                    <button type="submit">Update</button>
+                </form>
             </div>
-            <button type="submit" name="update" id="update-button">Update</button> 
-        </form>
-    </div>
-    
-    <div id="employmentcontainer" class="employmentcontainer hidden">
-        <form action="/employee/employment" method="post">
+        </div>
+
+        <div id="employmentcontainer" class="hidden">
             <h1>Employment Information</h1>
-            <div class="input-grid">
-                <div class="form-group">
+            <div class="form-container">
+                <form action="/employee/employment" method="post">
                     <label for="idnum">ID Number</label>
-                    <input type="text" name="idnum" placeholder="ID Number" value="<%= user.id_number %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="employmenttype">Employment Type</label>
-                    <select id="employmenttype" name="employmenttype" class="styled-select" required>
-                        <option value="" disabled>Select Employment Type</option>
-                        <option value="Full-Time" <%= employmentInfo.employment_type === 'Full-Time' ? 'selected' : '' %>>Full-Time</option>
-                        <option value="Part-Time" <%= employmentInfo.employment_type === 'Part-Time' ? 'selected' : '' %>>Part-Time</option>
-                        <option value="Contract" <%= employmentInfo.employment_type === 'Contract' ? 'selected' : '' %>>Contract</option>
-                        <option value="Temporary" <%= employmentInfo.employment_type === 'Temporary' ? 'selected' : '' %>>Temporary</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="department">Department</label>
-                    <select id="department" name="department" class="styled-select" required>
-                        <option value="" disabled>Select Department</option>
-                        <option value="Sales Department" <%= employmentInfo.department === 'Sales Department' ? 'selected' : '' %>>Sales Department</option>
-                        <option value="Service Department" <%= employmentInfo.department === 'Service Department' ? 'selected' : '' %>>Service Department</option>
-                        <option value="Parts Department" <%= employmentInfo.department === 'Parts Department' ? 'selected' : '' %>>Parts Department</option>
-                        <option value="Finance and Accounting Department" <%= employmentInfo.department === 'Finance and Accounting Department' ? 'selected' : '' %>>Finance and Accounting Department</option>
-                        <option value="Marketing Department" <%= employmentInfo.department === 'Marketing Department' ? 'selected' : '' %>>Marketing Department</option>
-                        <option value="Human Resources Department" <%= employmentInfo.department === 'Human Resources Department' ? 'selected' : '' %>>Human Resources Department</option>
-                        <option value="Customer Relations Department" <%= employmentInfo.department === 'Customer Relations Department' ? 'selected' : '' %>>Customer Relations Department</option>
-                        <option value="Logistics and Transport Department" <%= employmentInfo.department === 'Logistics and Transport Department' ? 'selected' : '' %>>Logistics and Transport Department</option>
-                        <option value="IT Department" <%= employmentInfo.department === 'IT Department' ? 'selected' : '' %>>IT Department</option>
-                        <option value="Security Department" <%= employmentInfo.department === 'Security Department' ? 'selected' : '' %>>Security Department</option>
-                        <option value="Cleaning Department" <%= employmentInfo.department === 'Cleaning Department' ? 'selected' : '' %>>Cleaning Department</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="hireDate">Date of Hire</label>
-                    <input type="date" name="hireDate" placeholder="Date of Hire" value="<%= employmentInfo.hire_date ? employmentInfo.hire_date.toISOString().split('T')[0] : '' %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="position">Position</label>
-                    <select id="position" name="position" class="styled-select" required>
-                        <option value="" disabled selected>Select Position</option>
-                        <!-- Add options for positions here -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="rate">Salary Rate</label>
-                    <input type="text" name="rate" placeholder="Salary Rate" value="<%= employmentInfo.salary_rate || '' %>" required>
-                </div>
+                    <input type="text" name="idnum" placeholder="ID Number" required>
+                    <!-- Add more fields -->
+                    <button type="submit">Save</button>
+                </form>
             </div>
-    
-            <h1>Bank Information</h1>
-            <div class="input-grid">
-                <div class="form-group">
-                    <label for="bankname">Bank Name</label>
-                    <input type="text" name="bankname" placeholder="Bank Name" value="<%= employmentInfo.bank_name || '' %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="accountname">Account Holder Name</label>
-                    <input type="text" name="accountname" placeholder="Account Holder Name" value="<%= employmentInfo.account_holder_name || '' %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="accountnum">Account Number</label>
-                    <input type="text" name="accountnum" placeholder="Account Number" value="<%= employmentInfo.account_number || '' %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="routingnum">Routing Number</label>
-                    <input type="text" name="routingnum" placeholder="Routing Number" value="<%= employmentInfo.routing_number || '' %>" required>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="submit" name="save" id="save-button">Save</button>
-            </div>
-        </form>
-    </div>
-    
-    <div id="leavecontainer" class="leavecontainer hidden">
-        <form action="/employee/leave" method="post" class="leave-form">
+        </div>
+
+        <div id="leavecontainer" class="hidden">
             <h1>Leave Application</h1>
-            <input type="hidden" name="idnum" value="<%= user.id_number %>"> <!-- Hidden input for id_number -->
-            <div class="input-container">
-                <label for="subject">Leave Subject</label>
-                <input type="text" id="subject" name="subject" placeholder="Enter Leave Subject" required>
-                <label for="type">Leave Type</label>
-                <select id="leaveType" name="leaveType" required>
-                    <option value="">Select Leave Type</option>
-                    <option value="Sick Leave">Sick Leave</option>
-                    <option value="Casual Leave">Casual Leave</option>
-                    <option value="Annual Leave">Annual Leave</option>
-                    <option value="Maternity Leave">Maternity Leave</option>
-                    <option value="Paternity Leave">Paternity Leave</option>
-                    <option value="Unpaid Leave">Unpaid Leave</option>
-                </select>
-                <label for="leavedate">Leave Date</label>
-                <input type="date" id="leavedate" name="leavedate" required>
-                <label for="enddate">End of Leave Date</label>
-                <input type="date" id="enddate" name="enddate" required>
-                <label for="message">Leave Message</label>
-                <textarea id="message" name="message" placeholder="Enter Leave Message or Details" required></textarea>
+            <div class="form-container">
+                <form action="/employee/leave" method="post">
+                    <label for="subject">Leave Subject</label>
+                    <input type="text" name="subject" placeholder="Enter Leave Subject" required>
+                    <!-- Add more fields -->
+                    <button type="submit">Save</button>
+                </form>
             </div>
-            <div class="button-container">
-                <button type="submit" name="save" id="save-button">Save</button>
-            </div>
-        </form>        
+        </div>
     </div>
 
-    <div id="leavereqcontainer" class="leavereqcontainer hidden">
-        <form action="" method="post" class="leave-form">
-            <h1>Leaves Request</h1>
-            <!-- Search bar with icon button -->
-            <div class="search-container">
-                <input type="text" id="search" placeholder="Search Leave Requests">
-                <button type="button" id="search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-            <!-- Table -->
-            <table id="requesttable" class="requesttable-display">
-                <thead>
-                    <tr>
-                        <th>Leave Subject</th>
-                        <th>Leave Type</th>
-                        <th>Leave Date</th>
-                        <th>End of Leave Date</th>
-                        <th>Leave Message</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% leaveRequests.forEach(request => { %>
-                        <tr>
-                            <td><%= request.subject %></td>
-                            <td><%= request.leave_type %></td>
-                            <td><%= request.leave_date.toISOString().split('T')[0] %></td>
-                            <td><%= request.end_date ? request.end_date.toISOString().split('T')[0] : 'N/A' %></td>
-                            <td><%= request.message %></td>
-                            <td><%= request.status %></td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-            <!-- Pagination controls -->
-            <div class="pagination">
-                <button class="page-btn" id="prev-btn">Previous</button>
-                <span id="page-info">Page 1 of X</span>
-                <button class="page-btn" id="next-btn">Next</button>
-            </div>
-        </form>
-    </div>
-    
-    
-    <div id="holidayscontainer" class="holidayscontainer hidden">
-        <form action="" method="post" class="holidays-form">
-            <h1>Holidays</h1>
-            <table id="requesttable" class="requesttable-display" >
-                <thead>
-                    <tr>
-                        <th>Holiday Title</th>
-                        <th>Holiday Description</th>
-                        <th>Holiday Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                </tbody>
-
-            </table>
-        </form>
-    </div>
-    <script src="/script/employee.js"></script>
+    <script>
+        function showContainer(containerId) {
+            document.querySelectorAll('.content > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(containerId).classList.remove('hidden');
+        }
+    </script>
 </body>
+
 </html>
