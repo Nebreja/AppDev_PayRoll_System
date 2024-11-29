@@ -187,3 +187,53 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Event listener for ID number links
+    const idLinks = document.querySelectorAll('.id-link');
+
+    idLinks.forEach(link => {
+        link.addEventListener('click', async (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const idNumber = link.getAttribute('data-id');
+
+            // Fetch employee data based on the ID number
+            const response = await fetch(`/admin/employee/${idNumber}`);
+            const data = await response.json();
+
+            // Populate modal with employee data
+            if (data) {
+                document.querySelector('#employeeinformationForm').innerHTML = `
+                    <label>ID Number: ${data.id_number}</label>
+                    <label>Last Name: ${data.last_name}</label>
+                    <label>First Name: ${data.first_name}</label>
+                    <label>Middle Name: ${data.middle_name}</label>
+                    <label>DOB: ${new Date(data.dob).toLocaleDateString()}</label>
+                    <label>Gender: ${data.gender}</label>
+                    <label>Status: ${data.status}</label>
+                    <label>Contact Number: ${data.contact_number}</label>
+                    <label>Emergency Number: ${data.emergency_number}</label>
+                    <label>Address: ${data.address}</label>
+                    <label>Email: ${data.email}</label>
+                    <label>Department: ${data.department}</label>
+                    <label>Position: ${data.position}</label>
+                    <label>Employment Type: ${data.employment_type}</label>
+                    <label>Date of Hire: ${new Date(data.hire_date).toLocaleDateString()}</label>
+                    <label>Salary Rate: ${data.salary_rate}</label>
+                    <label>Bank Name: ${data.bank_name}</label>
+                    <label>Account Holder Name: ${data.account_holder_name}</label>
+                    <label>Account Number: ${data.account_number}</label>
+                    <label>Routing Number: ${data.routing_number}</label>
+                `;
+            }
+
+            // Show the modal
+            document.querySelector('#employeeinformationModal').classList.remove('hidden');
+        });
+    });
+
+    // Close button functionality for the modal
+    document.querySelector('.close-btn').addEventListener('click', () => {
+        document.querySelector('#employeeinformationModal').classList.add('hidden');
+    });
+});
