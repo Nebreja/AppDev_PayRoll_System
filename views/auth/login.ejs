@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/auth/login" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <form id="webauthn-login">
+        <button type="button" id="login-button" class="btn btn-primary">Login with Biometrics</button>
+    </form>
+    
+    <script>
+        document.getElementById('login-button').addEventListener('click', async () => {
+            try {
+                // Simulate user ID retrieval for demonstration
+                const userId = '<%= user ? user.id : "" %>'; // Placeholder
+                if (!userId) {
+                    alert('User ID is not available. Please log in with email and password first.');
+                    return;
+                }
+
+                // Proceed with WebAuthn flow
+                const challengeResponse = await fetch('/webauthn/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId }),
+                }).then(res => res.json());
+
+                const assertionCredential = await navigator.credentials.get({ publicKey: challengeResponse });
+                const assertionResponse = assertionCredential.toJSON();
+
+                await fetch('/webauthn/login/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, assertionResponse }),
+                });
+            } catch (error) {
+                console.error('Biometric login error:', error);
+                alert('An error occurred during biometric login.');
+            }
+        });
+    </script>
+    
+    <p>Don't have an account? <a href="/auth/register">Register</a></p>
+</body>
+</html>

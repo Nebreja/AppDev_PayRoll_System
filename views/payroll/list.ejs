@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payroll List</title>
+</head>
+<body>
+    <h1>Payroll Records</h1>
+    <a href="/payroll/generate">Generate Payroll</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee ID</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% payrollRecords.forEach(record => { %>
+                <tr>
+                    <td><%= record.id %></td>
+                    <td><%= record.employeeId %></td>
+                    <td><%= record.month %></td>
+                    <td><%= record.year %></td>
+                    <td><%= record.salary %></td>
+                    <td>
+                        <a href="/payroll/details/<%= record.id %>">Details</a>
+                    </td>
+                </tr>
+            <% }); %>
+
+            <form action="/payroll/filter" method="GET" class="mb-3">
+                <label for="month">Month:</label>
+                <input type="text" id="month" name="month" class="form-control" placeholder="e.g., January" value="<%= month || '' %>">
+            
+                <label for="year">Year:</label>
+                <input type="number" id="year" name="year" class="form-control" placeholder="e.g., 2024" value="<%= year || '' %>">
+            
+                <button type="submit" class="btn btn-primary mt-2">Filter</button>
+            </form>
+
+            <form action="/payroll/import" method="POST" enctype="multipart/form-data" class="mb-3">
+                <label for="file">Import Payroll (CSV):</label>
+                <input type="file" id="file" name="file" accept=".csv" required>
+                <button type="submit" class="btn btn-primary mt-2">Upload</button>
+            </form>
+            <a href="/payroll/export" class="btn btn-secondary">Export Payroll as CSV</a>
+            
+            
+        </tbody>
+    </table>
+</body>
+</html>

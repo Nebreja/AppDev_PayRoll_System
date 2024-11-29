@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="/auth/register" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <option value="employee">Employee</option>
+            <option value="admin">Admin</option>
+        </select>
+        <br>
+        <label for="department">Department:</label>
+        <select id="department" name="department" required>
+            <option value="HR">HR</option>
+            <option value="Operations">Operations</option>
+            <option value="IT">IT</option>
+            <option value="Finance">Finance</option>
+        </select>
+        <br>
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/auth/login">Login</a></p>
+
+    <form id="webauthn-register">
+        <button type="button" id="register-button" class="btn btn-primary">Register Biometrics</button>
+    </form>
+    
+    <script>
+        document.getElementById('register-button').addEventListener('click', async () => {
+            try {
+                // Handle case when `user` is not defined
+                const userId = '<%= typeof user !== "undefined" && user ? user.id : "" %>';
+                if (!userId) {
+                    alert('User ID is not available. Please complete basic registration first.');
+                    return;
+                }
+
+                // WebAuthn biometric registration flow
+                const challengeResponse = await fetch('/webauthn/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId }),
+                }).then(res => res.json());
+
+                const publicKeyCredential = await navigator.credentials.create({ publicKey: challengeResponse });
+                const attestationResponse = publicKeyCredential.toJSON();
+
+                await fetch('/webauthn/register/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, attestationResponse }),
+                });
+
+                alert('Biometric registration successful!');
+            } catch (error) {
+                console.error('Biometric registration error:', error);
+                alert('An error occurred during biometric registration.');
+            }
+        });
+    </script>
+</body>
+</html>
