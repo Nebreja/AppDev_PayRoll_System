@@ -79,6 +79,133 @@ h1 {
     flex-grow: 1; /* Make the table container grow to fill available space */
     overflow-y: auto; /* Add vertical scroll if content exceeds container height */
 }
+.employeecontainer {
+    width: calc(100% - 100px - 2 * 50px);
+    max-width: 1200px;
+    margin: 50px;
+    padding: 40px;
+    background: rgb(84, 119, 255);
+    background: linear-gradient(159deg, rgba(84, 119, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(77, 53, 53, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+.leavereqcontainer {
+    width: calc(100% - 100px - 2 * 50px);
+    max-width: 1200px;
+    margin: 50px;
+    padding: 40px;
+    background: rgb(84, 119, 255);
+    background: linear-gradient(159deg, rgba(84, 119, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(77, 53, 53, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+/* Search bar styling */
+.search-container {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.search-container button {
+    padding: 10px;
+    background-color: #5477ff;
+    color: white;
+    border: 1px solid #5477ff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.search-container button:hover {
+    background-color: #4767d5;
+}
+
+.search-container i {
+    font-size: 16px;
+}
+
+/* Table styling with black borders */
+.requesttable-display {
+    width: 100%;
+    max-width: 1000px; 
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+    
+}
+
+.requesttable-display th,
+.requesttable-display td {
+    padding: 12px 15px;
+    border: 1px solid #000; /* Black border */
+    text-align: center;
+    font-size: 14px;
+}
+
+.requesttable-display thead {
+    background-color: #5477ff;
+    color: white;
+}
+
+.requesttable-display tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.requesttable-display tbody tr:hover {
+    background-color: #e0e8ff;
+}
+
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    padding: 8px 16px;
+    background-color: #5477ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.page-btn:hover {
+    background-color: #4767d5;
+}
+
+#page-info {
+    font-size: 14px;
+    color: #333;
+}
 .holidayscontainer {
     width: calc(100% - 100px - 2 * 50px);
     max-width: 1200px;
@@ -133,4 +260,160 @@ h1 {
 
 .add-holiday-btn:hover {
     background-color: #4767d5;
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.modal-content {
+    background: linear-gradient(159deg, rgba(84, 119, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #4767d5; /* Slight color change on hover */
+}
+
+.modal h2 {
+    font-size: 24px;
+    color: #5477ff;
+    margin-bottom: 20px;
+}
+
+.modal form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal label {
+    font-size: 14px;
+    color: #333;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+.modal input[type="text"],
+.modal input[type="date"],
+.modal textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal textarea {
+    resize: vertical; /* Allow vertical resizing */
+    height: 80px;
+}
+
+.modal button[type="submit"] {
+    background-color: #5477ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.modal button[type="submit"]:hover {
+    background-color: #4767d5;
+}
+/* Scoped styles for #employeeinformation modal */
+
+/* Modal Background Overlay */
+#employeeinformation.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Hidden Class for Modal */
+#employeeinformation.modal.hidden {
+    display: none;
+}
+
+/* Modal Content */
+#employeeinformation .modal-content {
+    width: 70%; /* Adjust as needed */
+    max-height: 80vh; /* Set maximum height for scrolling */
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button */
+#employeeinformation .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Scrollbar Styling */
+#employeeinformation .modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#employeeinformation .modal-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+#employeeinformation .modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+#employeeinformation .modal-content::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 4px;
 }
