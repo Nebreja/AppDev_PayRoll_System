@@ -1,0 +1,50 @@
+<h1>Report Results</h1>
+
+<h2>Attendance Records</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% attendanceRecords.forEach(record => { %>
+            <tr>
+                <td><%= record.Employee.name %></td>
+                <td><%= record.Employee.email %></td>
+                <td><%= record.date %></td>
+                <td><%= record.status %></td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<h2>Payroll Records</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% payrollRecords.forEach(record => { %>
+            <tr>
+                <td><%= record.Employee.name %></td>
+                <td><%= record.Employee.email %></td>
+                <td><%= record.month %></td>
+                <td><%= record.year %></td>
+                <td>$<%= record.salary %></td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<a href="/custom-reports/export-csv" class="btn btn-success">Export as CSV</a>
+<a href="/custom-reports/export-pdf" class="btn btn-danger">Export as PDF</a>

@@ -1,0 +1,19 @@
+<form action="/custom-reports/generate" method="POST">
+    <h1>Generate Custom Report</h1>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+    
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+    
+    <label for="department">Department:</label>
+    <select id="department" name="department">
+        <option value="">All</option>
+        <% departments.forEach(department => { %>
+            <option value="<%= department.department %>"><%= department.department %></option>
+        <% }); %>
+    </select>
+    
+    <button type="submit" class="btn btn-primary">Generate Report</button>
+</form>
